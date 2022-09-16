@@ -16,13 +16,14 @@ std::set<std::string> Book::keywords() const
 	std::set<std::string> kw;
 	kw.insert(ISBN_);
 	kw.insert(Author_);
+	kw.insert(name_);
 	return kw;
 }
 
 std::string Book::displayString() const
 {
 	std::stringstream ss;
-	ss << category_ << " " << name_ << " " << price_ << " " << qty_ << " " << ISBN_ << " " << Author_;
+	ss << name_ << "\nAuthor: " << Author_ << " ISBN: " << ISBN_ << "\n" << price_ << " " << qty_ << " left." ;
 	return ss.str();
 }
 
