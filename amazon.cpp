@@ -9,6 +9,7 @@
 #include "db_parser.h"
 #include "product_parser.h"
 #include "util.h"
+#include "mydatastore.h"
 
 using namespace std;
 struct ProdNameSorter {
@@ -29,7 +30,7 @@ int main(int argc, char* argv[])
      * Declare your derived DataStore object here replacing
      *  DataStore type to your derived type
      ****************/
-    DataStore ds;
+    MyDataStore ds;
 
 
 
@@ -50,6 +51,8 @@ int main(int argc, char* argv[])
         cerr << "Error parsing!" << endl;
         return 1;
     }
+    
+    ds.initialize_user(); //initialize the cart
 
     cout << "=====================================" << endl;
     cout << "Menu: " << endl;
@@ -100,10 +103,47 @@ int main(int argc, char* argv[])
                 done = true;
             }
 	    /* Add support for other commands here */
+            else if ( cmd == "ADD"){
+                string username;
+                int hit_number;
+                if(ss>>username&&ss>>hit_number) 
+                {
+										//the function return 1 when the input is the correct data type but invalid
+                    if(ds.add_cart(username,hit_number,hits))
+                    {
+                        cout << "Invalid request" << endl;
+                    }            
+                }
+								else cout << "Invalid request" << endl;
 
-
-
-
+            }
+            else if(cmd == "VIEWCART")
+            {
+                string username;
+                if(ss>>username)
+                {
+										//the function return 1 when the input is the correct data type but invalid
+                    if(ds.view_cart(username))
+                    {
+                        cout << "Invalid username" << endl;
+                    }
+                }
+								else cout << "Invalid uername" << endl;
+            }
+            else if(cmd == "BUYCART")
+            {
+                string username;
+                if(ss>>username)
+                {
+										//the function return 1 when the input is the correct data type but invalid
+                    if(ds.buy_cart(username))
+                    {
+                        cout << "Invalid username" << endl;
+                    }
+                }
+								else cout << "Invalid username" << endl;
+                
+            }
             else {
                 cout << "Unknown command" << endl;
             }
