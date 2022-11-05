@@ -14,8 +14,17 @@ Movie::~Movie()
 std::set<std::string> Movie::keywords() const
 {
 	std::set<std::string> kw;
-	kw.insert(Genre_);
-	kw.insert(name_);
+
+	std::set<std::string> temp1 = parseStringToWords(Genre_); //new
+	std::set<std::string> temp2 = parseStringToWords(name_); //mew
+
+	kw = setUnion(temp1, temp2);
+
+
+
+
+	//kw.insert(Genre_);
+	//kw.insert(name_);
 	return kw;
 }
 

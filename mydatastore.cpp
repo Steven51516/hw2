@@ -146,23 +146,47 @@ std::vector<Product*> MyDataStore::search(std::vector<std::string>& terms, int t
 		std::set<std::string> temp_set = p_list[i]->keywords();
 		for(std::set<std::string>::iterator it = temp_set.begin(); it!=temp_set.end(); ++it)
 		{
-			std::string word = *it;
-			std::set<std::string> word_parse = parseStringToWords(word);
-			for(std::set<std::string>::iterator it1 = word_parse.begin(); it1 != word_parse.end(); ++it1)
+			std::string keyword = *it;
+			keyword=convToLower(keyword);
+			for(int j = 0; j < int(terms.size()); j++)
 			{
-				std::string keyword = *it1;
-				keyword=convToLower(keyword);
-				for(int j = 0; j < int(terms.size()); j++)
+				if(terms[j]==keyword)
 				{
-					if(terms[j]==keyword)
-					{
-						
-						all[j].insert(p_list[i]);
-					}
+					
+					all[j].insert(p_list[i]);
 				}
 			}
 		}
 	}
+
+
+
+	// 	//vector for final result
+	// std::vector<Product*> result_v;
+	// //create a vector to store sets of items found for each keyword.
+	// std::vector<std::set<Product*>> all(terms.size(),std::set<Product*>{});
+	// for(int i = 0; i < int(p_list.size()); i++)
+	// {
+	// 	std::set<std::string> temp_set = p_list[i]->keywords();
+	// 	for(std::set<std::string>::iterator it = temp_set.begin(); it!=temp_set.end(); ++it)
+	// 	{
+	// 		std::string word = *it;
+	// 		std::set<std::string> word_parse = parseStringToWords(word);
+	// 		for(std::set<std::string>::iterator it1 = word_parse.begin(); it1 != word_parse.end(); ++it1)
+	// 		{
+	// 			std::string keyword = *it1;
+	// 			keyword=convToLower(keyword);
+	// 			for(int j = 0; j < int(terms.size()); j++)
+	// 			{
+	// 				if(terms[j]==keyword)
+	// 				{
+						
+	// 					all[j].insert(p_list[i]);
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+	// }
 	
 	// OR
 	if(type==1)
